@@ -1,0 +1,68 @@
+/* ─────────────────────────────────────────────
+   ANIMATIONS — CSS-driven motion rules
+   GSAP handles scroll & complex animations.
+   This file owns static transitions & states.
+   ───────────────────────────────────────────── */
+
+/* ── Nav burger state ── */
+.lf-nav__burger.is-active .lf-nav__burger-line:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.lf-nav__burger.is-active .lf-nav__burger-line:nth-child(2) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ── Mobile menu link stagger (CSS, not GSAP) ── */
+.lf-mobile-menu__link {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity   var(--duration-slow) var(--ease-out-expo),
+              transform var(--duration-slow) var(--ease-out-expo),
+              color     var(--duration-base);
+}
+
+.lf-mobile-menu.is-open .lf-mobile-menu__link:nth-child(1) { opacity: 1; transform: none; transition-delay: 60ms;  }
+.lf-mobile-menu.is-open .lf-mobile-menu__link:nth-child(2) { opacity: 1; transform: none; transition-delay: 110ms; }
+.lf-mobile-menu.is-open .lf-mobile-menu__link:nth-child(3) { opacity: 1; transform: none; transition-delay: 160ms; }
+.lf-mobile-menu.is-open .lf-mobile-menu__link:nth-child(4) { opacity: 1; transform: none; transition-delay: 210ms; }
+.lf-mobile-menu.is-open .lf-mobile-menu__link:nth-child(5) { opacity: 1; transform: none; transition-delay: 260ms; }
+.lf-mobile-menu.is-open .lf-mobile-menu__link:nth-child(6) { opacity: 1; transform: none; transition-delay: 310ms; }
+
+/* ── Stack tag base state — GSAP will reveal ── */
+.stack__tags .tag {
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+}
+
+.stack__tags.tags-revealed .tag {
+  opacity: 1;
+  transform: none;
+  transition: opacity   0.4s var(--ease-out-expo),
+              transform 0.4s var(--ease-out-expo),
+              color     var(--duration-base),
+              border-color var(--duration-base),
+              background  var(--duration-base),
+              transform   var(--duration-base) var(--ease-out-expo);
+}
+
+/* ── Project card 3D tilt ── */
+.project-card {
+  transform-style: preserve-3d;
+  transition: transform var(--duration-base) var(--ease-out-expo),
+              padding-left var(--duration-slower) var(--ease-out-expo);
+}
+
+/* ── Loader exit ── */
+#loader {
+  transition: transform 1s var(--ease-in-out);
+}
+
+#loader.is-hidden {
+  transform: translateY(-100%);
+}
+
+/* ── Scroll-triggered section fade states ── */
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}

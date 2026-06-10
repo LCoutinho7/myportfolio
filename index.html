@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lucas Coutinho — Desenvolvedor Full Stack Júnior. Aplicações web e mobile escaláveis, com foco em produto e experiência do usuário." />
+  <meta name="theme-color" content="#080808" />
+  <title>Lucas Coutinho — Full Stack Developer</title>
+
+  <!-- Preconnect fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 (grid only) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/typography.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+</head>
+<body class="is-loading">
+
+  <!-- ══════════════════════════════════════
+       LOADER
+  ══════════════════════════════════════ -->
+  <div id="loader" role="status" aria-label="Carregando">
+    <div class="loader__count" id="loader-count" aria-hidden="true">0</div>
+    <div class="loader__meta">
+      <span class="loader__label t-label-muted">Carregando experiência</span>
+      <div class="loader__bar-track">
+        <div class="loader__bar-fill" id="loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       CUSTOM CURSOR (desktop only)
+  ══════════════════════════════════════ -->
+  <div id="lf-cursor"      aria-hidden="true"></div>
+  <div id="lf-cursor-ring" aria-hidden="true"></div>
+
+  <!-- ══════════════════════════════════════
+       MOUSE GLOW
+  ══════════════════════════════════════ -->
+  <div class="lf-mouse-glow" aria-hidden="true"></div>
+
+  <!-- ══════════════════════════════════════
+       SCROLL PROGRESS
+  ══════════════════════════════════════ -->
+  <div id="scroll-progress" aria-hidden="true">
+    <div id="scroll-progress-bar"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════ -->
+  <header role="banner">
+    <nav class="lf-nav" aria-label="Navegação principal">
+      <a href="#hero" class="lf-nav__logo" aria-label="Ir ao topo">
+        LC<span class="lf-nav__logo-dot">.</span>
+      </a>
+
+      <ul class="lf-nav__links" role="list">
+        <li><a href="#sobre"      class="lf-nav__link">Sobre</a></li>
+        <li><a href="#stack"      class="lf-nav__link">Stack</a></li>
+        <li><a href="#projetos"   class="lf-nav__link">Projetos</a></li>
+        <li><a href="#experiencia" class="lf-nav__link">Experiência</a></li>
+        <li><a href="#formacao"   class="lf-nav__link">Formação</a></li>
+        <li><a href="#contato"    class="lf-nav__link" data-magnetic>Contato</a></li>
+      </ul>
+
+      <button
+        class="lf-nav__burger"
+        id="nav-burger"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="lf-nav__burger-line"></span>
+        <span class="lf-nav__burger-line"></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <nav
+      class="lf-mobile-menu"
+      id="mobile-menu"
+      aria-label="Menu mobile"
+      aria-hidden="true"
+    >
+      <a href="#sobre"       class="lf-mobile-menu__link">Sobre</a>
+      <a href="#stack"       class="lf-mobile-menu__link">Stack</a>
+      <a href="#projetos"    class="lf-mobile-menu__link">Projetos</a>
+      <a href="#experiencia" class="lf-mobile-menu__link">Experiência</a>
+      <a href="#formacao"    class="lf-mobile-menu__link">Formação</a>
+      <a href="#contato"     class="lf-mobile-menu__link">Contato</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════
+         HERO
+    ══════════════════════════════════════ -->
+    <section id="hero" aria-labelledby="hero-title">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero__grain" aria-hidden="true"></div>
+      <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
+      <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
+
+      <div class="hero__content">
+
+        <div class="hero__eyebrow" aria-hidden="true">
+          <span class="hero__eyebrow-dot"></span>
+          <span class="t-label-muted">Desenvolvedor Full Stack</span>
+          <span class="t-label-muted" style="color:var(--color-border)">—</span>
+          <span class="t-label-muted">Osasco, SP</span>
+        </div>
+
+        <h1 class="hero__title" id="hero-title">
+          <span class="hero__title-line" data-split>Lucas</span>
+          <span class="hero__title-line hero__title-line--indent" data-split>Coutinho</span>
+        </h1>
+
+        <div class="hero__footer">
+          <p class="hero__desc">
+            Transformo ideias complexas em interfaces que
+            as pessoas genuinamente querem usar.
+          </p>
+          <div class="hero__actions">
+            <a href="#projetos" class="btn btn--primary" data-magnetic>Ver Projetos</a>
+            <a href="#contato"  class="btn btn--ghost"   data-magnetic>Falar comigo</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero__scroll-hint" aria-hidden="true">
+        <div class="hero__scroll-wheel"></div>
+        <span class="t-label-muted">Scroll</span>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         MARQUEE
+    ══════════════════════════════════════ -->
+    <div class="lf-marquee" aria-hidden="true">
+      <div class="lf-marquee__track">
+      <div class="lf-marquee__track">
+        <span>React</span><span class="lf-marquee__sep">·</span>
+        <span>Node.js</span><span class="lf-marquee__sep">·</span>
+        <span>Next.js</span><span class="lf-marquee__sep">·</span>
+        <span>TypeScript</span><span class="lf-marquee__sep">·</span>
+        <span>React Native</span><span class="lf-marquee__sep">·</span>
+        <span>Supabase</span><span class="lf-marquee__sep">·</span>
+        <span>PostgreSQL</span><span class="lf-marquee__sep">·</span>
+        <span>AWS</span><span class="lf-marquee__sep">·</span>
+        <span>Docker</span><span class="lf-marquee__sep">·</span>
+        <span>FastAPI</span><span class="lf-marquee__sep">·</span>
+        <!-- Duplicated for seamless infinite loop -->
+        <span>React</span><span class="lf-marquee__sep">·</span>
+        <span>Node.js</span><span class="lf-marquee__sep">·</span>
+        <span>Next.js</span><span class="lf-marquee__sep">·</span>
+        <span>TypeScript</span><span class="lf-marquee__sep">·</span>
+        <span>React Native</span><span class="lf-marquee__sep">·</span>
+        <span>Supabase</span><span class="lf-marquee__sep">·</span>
+        <span>PostgreSQL</span><span class="lf-marquee__sep">·</span>
+        <span>AWS</span><span class="lf-marquee__sep">·</span>
+        <span>Docker</span><span class="lf-marquee__sep">·</span>
+        <span>FastAPI</span><span class="lf-marquee__sep">·</span>
+      </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         ABOUT
+    ══════════════════════════════════════ -->
+    <section id="sobre" class="lf-section" aria-labelledby="sobre-title">
+      <div class="lf-container">
+        <div class="row align-items-center g-5">
+
+          <div class="col-lg-5" data-reveal>
+            <header class="section-header">
+              <p class="t-label section-header__label">— Sobre mim</p>
+              <h2 class="section-header__title" id="sobre-title">
+                Construindo produtos<br />
+                <em>que importam</em>
+              </h2>
+            </header>
+          </div>
+
+          <div class="col-lg-7" data-reveal data-reveal-delay="0.12">
+            <p class="about__body">
+              Desenvolvedor Full Stack com experiência prática em aplicações web e mobile — da definição de escopo até o deploy. Trabalho em plataformas SaaS, sistemas em tempo real e produtos focados na experiência do usuário.
+            </p>
+            <p class="about__body">
+              Tenho perfil analítico, autonomia e mentalidade de produto. Não entrego só código — entrego soluções que resolvem problemas reais de negócio.
+            </p>
+
+            <dl class="about__stats">
+              <div class="stat">
+                <dt class="stat__label">Anos de experiência</dt>
+                <dd class="stat__number" data-count="2">0</dd>
+              </div>
+              <div class="stat">
+                <dt class="stat__label">Projetos entregues</dt>
+                <dd class="stat__number" data-count="6">0</dd>
+              </div>
+              <div class="stat">
+                <dt class="stat__label">Tecnologias</dt>
+                <dd class="stat__number" data-count="15">0</dd>
+              </div>
+            </dl>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         STACK
+    ══════════════════════════════════════ -->
+    <section id="stack" class="lf-section lf-section--dark" aria-labelledby="stack-title">
+      <div class="lf-container">
+
+        <div data-reveal>
+          <header class="section-header">
+            <p class="t-label section-header__label">— Stack técnica</p>
+            <h2 class="section-header__title" id="stack-title">
+              Ferramentas que<br />
+              <em>domino de verdade</em>
+            </h2>
+          </header>
+        </div>
+
+        <div class="stack__grid" data-reveal data-reveal-delay="0.08">
+
+          <div class="stack__category">
+            <p class="stack__cat-label">Front-end</p>
+            <ul class="stack__tags" role="list">
+              <li class="tag">React</li>
+              <li class="tag">Next.js</li>
+              <li class="tag">React Native</li>
+              <li class="tag">TypeScript</li>
+              <li class="tag">JavaScript</li>
+              <li class="tag">Bootstrap</li>
+              <li class="tag">Tailwind CSS</li>
+              <li class="tag">Styled Components</li>
+            </ul>
+          </div>
+
+          <div class="stack__category">
+            <p class="stack__cat-label">Back-end</p>
+            <ul class="stack__tags" role="list">
+              <li class="tag">Node.js</li>
+              <li class="tag">Express</li>
+              <li class="tag">FastAPI</li>
+              <li class="tag">PostgreSQL</li>
+              <li class="tag">Supabase</li>
+              <li class="tag">Firebase</li>
+              <li class="tag">MySQL</li>
+            </ul>
+          </div>
+
+          <div class="stack__category">
+            <p class="stack__cat-label">Infra & DevOps</p>
+            <ul class="stack__tags" role="list">
+              <li class="tag">AWS</li>
+              <li class="tag">Vercel</li>
+              <li class="tag">Docker</li>
+              <li class="tag">Git / GitHub</li>
+            </ul>
+          </div>
+
+          <div class="stack__category">
+            <p class="stack__cat-label">Outras</p>
+            <ul class="stack__tags" role="list">
+              <li class="tag">APIs REST</li>
+              <li class="tag">Bluetooth Classic</li>
+              <li class="tag">SEO Técnico</li>
+              <li class="tag">Hardware</li>
+              <li class="tag">IA</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         PROJECTS
+    ══════════════════════════════════════ -->
+    <section id="projetos" class="lf-section" aria-labelledby="projetos-title">
+      <div class="lf-container">
+
+        <div data-reveal>
+          <header class="section-header">
+            <p class="t-label section-header__label">— Projetos em destaque</p>
+            <h2 class="section-header__title" id="projetos-title">
+              O que já<br /><em>construí</em>
+            </h2>
+          </header>
+        </div>
+
+        <ul class="projects__list" role="list">
+
+          <li class="project-card" data-reveal>
+            <span class="project-card__index t-mono">01</span>
+            <div class="project-card__body">
+              <div class="project-card__meta">
+                <span class="project-card__company">Welucci</span>
+                <span class="project-card__type">SaaS · Web · Editor</span>
+              </div>
+              <h3 class="project-card__title">Wehub</h3>
+              <p class="project-card__desc">
+                Plataforma digital que centraliza a jornada dos noivos após a contratação da Welucci, reunindo convites personalizados, sites exclusivos, gestão de convidados, listas de presentes e gerenciamento de foto e filmagem em uma experiência unificada.
+              </p>
+              <ul class="project-card__tags" role="list" aria-label="Tecnologias">
+                <li class="project-card__tag">Next.js</li>
+                <li class="project-card__tag">Supabase</li>
+                <li class="project-card__tag">PostgreSQL</li>
+                <li class="project-card__tag">Node.js</li>
+                <li class="project-card__tag">Bootstrap</li>
+              </ul>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </span>
+          </li>
+
+          <li class="project-card" data-reveal data-reveal-delay="0.08">
+            <span class="project-card__index t-mono">02</span>
+            <div class="project-card__body">
+              <div class="project-card__meta">
+                <span class="project-card__company">Welucci</span>
+                <span class="project-card__type">Backoffice · Operações · Dados</span>
+              </div>
+              <h3 class="project-card__title">PLANNER</h3>
+              <p class="project-card__desc">
+                Sistema de backoffice desenvolvido para centralizar operações e integrar dados da Welucci, substituindo soluções fragmentadas por uma arquitetura robusta, escalável e preparada para suportar o crescimento da empresa.
+              </p>
+              <ul class="project-card__tags" role="list" aria-label="Tecnologias">
+                <li class="project-card__tag">Next.js</li>
+                <li class="project-card__tag">Supabase</li>
+                <li class="project-card__tag">PostgreSQL</li>
+                <li class="project-card__tag">Node.js</li>
+                <li class="project-card__tag">Bootstrap</li>
+              </ul>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </span>
+          </li>
+
+          <li class="project-card" data-reveal data-reveal-delay="0.16">
+            <span class="project-card__index t-mono">03</span>
+            <div class="project-card__body">
+              <div class="project-card__meta">
+                <span class="project-card__company">Fixbit</span>
+                <span class="project-card__type">Mobile · IoT · SaaS</span>
+              </div>
+              <h3 class="project-card__title">SPYWELL — Monitor de Glicemia</h3>
+              <p class="project-card__desc">
+                Plataforma e app mobile para monitoramento de glicemia via Bluetooth em tempo real. Integração com hardware especializado e dashboards de análise clínica.
+              </p>
+              <ul class="project-card__tags" role="list" aria-label="Tecnologias">
+                <li class="project-card__tag">React Native</li>
+                <li class="project-card__tag">Bluetooth Classic</li>
+                <li class="project-card__tag">Node.js</li>
+                <li class="project-card__tag">Firebase</li>
+              </ul>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </span>
+          </li>
+
+          <li class="project-card" data-reveal data-reveal-delay="0.24">
+            <span class="project-card__index t-mono">04</span>
+            <div class="project-card__body">
+              <div class="project-card__meta">
+                <span class="project-card__company">Fixbit</span>
+                <span class="project-card__type">Web · SaaS · Dashboard</span>
+              </div>
+              <h3 class="project-card__title">SaaS para Barbearias</h3>
+              <p class="project-card__desc">
+                Sistema completo para agendamentos, dashboards administrativos e gestão operacional. Interface intuitiva focada em fluxo rápido de atendimento.
+              </p>
+              <ul class="project-card__tags" role="list" aria-label="Tecnologias">
+                <li class="project-card__tag">React</li>
+                <li class="project-card__tag">Node.js</li>
+                <li class="project-card__tag">Express</li>
+                <li class="project-card__tag">MySQL</li>
+              </ul>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </span>
+          </li>
+
+          <li class="project-card" data-reveal data-reveal-delay="0.32">
+            <span class="project-card__index t-mono">05</span>
+            <div class="project-card__body">
+              <div class="project-card__meta">
+                <span class="project-card__company">Fixbit</span>
+                <span class="project-card__type">Web · Mobile · Imobiliário</span>
+              </div>
+              <h3 class="project-card__title">Plataforma de Gestão Imobiliária</h3>
+              <p class="project-card__desc">
+                Sistema web e mobile para gerenciamento de imóveis com catálogo visual interativo, filtros avançados e painel de controle para corretores.
+              </p>
+              <ul class="project-card__tags" role="list" aria-label="Tecnologias">
+                <li class="project-card__tag">React</li>
+                <li class="project-card__tag">React Native</li>
+                <li class="project-card__tag">Node.js</li>
+                <li class="project-card__tag">PostgreSQL</li>
+              </ul>
+            </div>
+            <span class="project-card__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </span>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         EXPERIENCE
+    ══════════════════════════════════════ -->
+    <section id="experiencia" class="lf-section lf-section--dark" aria-labelledby="experiencia-title">
+      <div class="lf-container">
+        <div class="row g-5">
+
+          <div class="col-lg-4" data-reveal>
+            <header class="section-header">
+              <p class="t-label section-header__label">— Experiência</p>
+              <h2 class="section-header__title" id="experiencia-title">
+                Onde estive e<br /><em>o que construí</em>
+              </h2>
+            </header>
+          </div>
+
+          <div class="col-lg-8">
+            <ol class="timeline" role="list">
+
+              <li class="timeline__item" data-reveal>
+                <div class="timeline__dot" aria-hidden="true"></div>
+                <div class="timeline__body">
+                  <div class="timeline__header">
+                    <div>
+                      <h3 class="timeline__role">Desenvolvedor Full Stack Júnior</h3>
+                      <p class="timeline__company">Welucci</p>
+                    </div>
+                    <time class="timeline__period" datetime="2024">Mar 2026 - Atual</time>
+                  </div>
+                  <p class="timeline__desc">
+                    Na Welucci, atuo no desenvolvimento de produtos digitais voltados à jornada dos noivos e à modernização dos processos internos da empresa. Participei da construção da WeHub, plataforma que centraliza a experiência pós-venda dos clientes, e do Planner, sistema responsável por integrar operações e consolidar dados de diferentes áreas do negócio. Essa atuação envolve desenvolvimento full stack, arquitetura de software, integração de sistemas e construção de soluções com impacto direto na operação da empresa.
+                  </p>
+                </div>
+              </li>
+
+              <li class="timeline__item" data-reveal data-reveal-delay="0.1">
+                <div class="timeline__dot" aria-hidden="true"></div>
+                <div class="timeline__body">
+                  <div class="timeline__header">
+                    <div>
+                      <h3 class="timeline__role">Desenvolvedor Full Stack Júnior</h3>
+                      <p class="timeline__company">Fixbit Sistemas</p>
+                    </div>
+                    <time class="timeline__period" datetime="2026-03">Jun 2024 — Mar 2026</time>
+                  </div>
+                  <p class="timeline__desc">
+                    Desenvolvimento completo de aplicações web e mobile. Contato direto com clientes, levantamento de requisitos, arquitetura e prototipação. Projetos: SPYWELL, SaaS Barbearias, Plataforma Imobiliária.
+                  </p>
+                </div>
+              </li>
+
+            </ol>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         ACADEMIC EDUCATION
+    ══════════════════════════════════════ -->
+    <section id="formacao" class="lf-section" aria-labelledby="formacao-title">
+      <div class="lf-container">
+        <div class="row g-5 align-items-start">
+
+          <div class="col-lg-4" data-reveal>
+            <header class="section-header">
+              <p class="t-label section-header__label">— Formação Acadêmica</p>
+              <h2 class="section-header__title" id="formacao-title">
+                Base técnica para<br /><em>criar com método</em>
+              </h2>
+            </header>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="education-grid" role="list">
+
+              <article class="education-card" role="listitem" data-reveal>
+                <div class="education-card__meta">
+                  <span class="education-card__level">Graduação tecnológica</span>
+                  <time class="education-card__period" datetime="2025-12">Conclusão 12/2025</time>
+                </div>
+                <h3 class="education-card__course">Análise e Desenvolvimento de Sistemas</h3>
+                <p class="education-card__institution">FIAP</p>
+                <p class="education-card__desc">
+                  Foco em desenvolvimento de software, arquitetura de sistemas e metodologias ágeis.
+                </p>
+              </article>
+
+              <article class="education-card" role="listitem" data-reveal data-reveal-delay="0.1">
+                <div class="education-card__meta">
+                  <span class="education-card__level">Ensino técnico</span>
+                  <time class="education-card__period" datetime="2022-12">Conclusão 12/2022</time>
+                </div>
+                <h3 class="education-card__course">Técnico em Desenvolvimento de Sistemas</h3>
+                <p class="education-card__institution">ETEC Dr. Celso Giglio</p>
+                <p class="education-card__desc">
+                  Base sólida em lógica de programação, desenvolvimento web e fundamentos de sistemas.
+                </p>
+              </article>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CONTACT
+    ══════════════════════════════════════ -->
+    <section id="contato" class="lf-section" aria-labelledby="contato-title">
+      <div class="lf-container">
+        <div class="contact__inner" data-reveal>
+
+          <p class="t-label section-header__label" style="text-align:center">— Vamos conversar</p>
+
+          <h2 class="contact__title" id="contato-title">
+            Tem um projeto?<br />
+            <em>Me manda uma mensagem.</em>
+          </h2>
+
+          <p class="contact__sub">
+            Disponível para projetos freelance, oportunidades CLT e parcerias.
+          </p>
+
+          <a
+            href="mailto:lcoutinhodev@gmail.com"
+            class="contact__email"
+            data-magnetic
+          >
+            lcoutinhodev@gmail.com
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+
+          <nav class="contact__socials" aria-label="Redes sociais">
+            <a href="https://github.com/LCoutinho7"   target="_blank" rel="noopener noreferrer" class="contact__social" data-magnetic>GitHub</a>
+            <a href="https://linkedin.com/in/lucasffcoutinho" target="_blank" rel="noopener noreferrer" class="contact__social" data-magnetic>LinkedIn</a>
+          </nav>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="lf-footer" role="contentinfo">
+    <div class="lf-container">
+      <div class="lf-footer__inner">
+        <span class="lf-footer__logo">LC<span class="t-accent">.</span></span>
+        <small class="lf-footer__copy">© 2025 Lucas Coutinho. Todos os direitos reservados.</small>
+        <a href="#hero" class="lf-footer__top" data-magnetic aria-label="Voltar ao topo">
+          Topo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════
+       SCRIPTS — loaded at end of body
+  ══════════════════════════════════════ -->
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <!-- SplitType -->
+  <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+
+  <!-- Modules (order matters) -->
+  <script src="assets/js/smooth-scroll.js"></script>
+  <script src="assets/js/cursor.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script src="assets/js/interactions.js"></script>
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>

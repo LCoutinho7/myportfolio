@@ -1,0 +1,88 @@
+/* ─────────────────────────────────────────────
+   TYPOGRAPHY — Global type rules
+   ───────────────────────────────────────────── */
+
+/* ── Display / Heading Styles ── */
+.t-display {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--color-text-primary);
+}
+
+.t-heading-1 {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+}
+
+.t-heading-2 {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-snug);
+  line-height: var(--leading-snug);
+}
+
+.t-heading-3 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-snug);
+  line-height: var(--leading-snug);
+}
+
+/* ── Body Styles ── */
+.t-body-lg {
+  font-size: var(--text-md);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-loose);
+  color: var(--color-text-secondary);
+}
+
+.t-body {
+  font-size: var(--text-base);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+}
+
+/* ── Label Styles ── */
+.t-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.t-label-muted {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* ── Mono ── */
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.02em;
+}
+
+/* ── Italic emphasis ── */
+.t-em {
+  font-style: italic;
+  font-weight: var(--weight-light);
+  color: var(--color-text-secondary);
+}
+
+/* ── Inline accent ── */
+.t-accent { color: var(--color-accent); }

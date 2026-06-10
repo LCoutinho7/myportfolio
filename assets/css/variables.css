@@ -1,0 +1,131 @@
+/* ─────────────────────────────────────────────
+   DESIGN SYSTEM — TOKENS
+   Single source of truth for every visual decision.
+   ───────────────────────────────────────────── */
+
+:root {
+
+  /* ── Color Primitives ── */
+  --primitive-black:   #080808;
+  --primitive-900:     #0f0f0f;
+  --primitive-800:     #161616;
+  --primitive-700:     #1e1e1e;
+  --primitive-600:     #2a2a2a;
+  --primitive-500:     #404040;
+  --primitive-400:     #6b6b6b;
+  --primitive-300:     #a0a0a0;
+  --primitive-200:     #d4d4d4;
+  --primitive-100:     #f0f0ee;
+  --primitive-white:   #f8f8f6;
+
+  --primitive-blue-50:  rgba(99,120,255,0.06);
+  --primitive-blue-100: rgba(99,120,255,0.12);
+  --primitive-blue-400: #6378ff;
+  --primitive-blue-500: #4f63f0;
+
+  /* ── Semantic Color Tokens ── */
+  --color-bg:           var(--primitive-black);
+  --color-bg-raised:    var(--primitive-900);
+  --color-bg-elevated:  var(--primitive-800);
+  --color-bg-overlay:   var(--primitive-700);
+
+  --color-border:       rgba(248,248,246,0.07);
+  --color-border-hover: rgba(248,248,246,0.14);
+
+  --color-text-primary:   var(--primitive-white);
+  --color-text-secondary: var(--primitive-300);
+  --color-text-tertiary:  var(--primitive-400);
+  --color-text-disabled:  var(--primitive-500);
+
+  --color-accent:         var(--primitive-blue-400);
+  --color-accent-hover:   var(--primitive-blue-500);
+  --color-accent-subtle:  var(--primitive-blue-50);
+  --color-accent-muted:   var(--primitive-blue-100);
+
+  /* ── Typography Scale ── */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs:   0.6875rem;   /* 11px */
+  --text-sm:   0.8125rem;   /* 13px */
+  --text-base: 0.9375rem;   /* 15px */
+  --text-md:   1.0625rem;   /* 17px */
+  --text-lg:   1.25rem;     /* 20px */
+  --text-xl:   1.5rem;      /* 24px */
+  --text-2xl:  2rem;        /* 32px */
+  --text-3xl:  2.5rem;      /* 40px */
+  --text-4xl:  3.5rem;      /* 56px */
+  --text-5xl:  clamp(3.5rem, 7vw, 6rem);
+  --text-hero: clamp(4.5rem, 12vw, 11rem);
+
+  --leading-tight:  0.92;
+  --leading-snug:   1.1;
+  --leading-normal: 1.6;
+  --leading-loose:  1.8;
+
+  --tracking-tight:  -0.04em;
+  --tracking-snug:   -0.025em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.06em;
+  --tracking-wider:   0.12em;
+
+  --weight-light:   300;
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold: 600;
+  --weight-bold:    700;
+
+  /* ── Spacing Scale ── */
+  --space-2xs: 0.25rem;   /* 4px  */
+  --space-xs:  0.5rem;    /* 8px  */
+  --space-sm:  0.75rem;   /* 12px */
+  --space-md:  1rem;      /* 16px */
+  --space-lg:  1.5rem;    /* 24px */
+  --space-xl:  2rem;      /* 32px */
+  --space-2xl: 3rem;      /* 48px */
+  --space-3xl: 4rem;      /* 64px */
+  --space-4xl: 6rem;      /* 96px */
+  --space-5xl: 8rem;      /* 128px */
+  --space-6xl: 10rem;     /* 160px */
+
+  --section-gap: clamp(5rem, 10vw, 9rem);
+
+  /* ── Border Radius ── */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   20px;
+  --radius-full: 9999px;
+
+  /* ── Elevation (box-shadow) ── */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,0.6);
+  --shadow-accent: 0 0 32px rgba(99,120,255,0.25);
+
+  /* ── Motion System ── */
+  --ease-out-expo:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart:  cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out:     cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast:   150ms;
+  --duration-base:   250ms;
+  --duration-slow:   400ms;
+  --duration-slower: 700ms;
+
+  /* ── Layout ── */
+  --container-max: 1280px;
+  --container-pad: clamp(1.5rem, 5vw, 5rem);
+  --nav-height:    72px;
+
+  /* ── Z-index Layers ── */
+  --z-base:     0;
+  --z-raised:   10;
+  --z-floating: 100;
+  --z-overlay:  500;
+  --z-nav:      800;
+  --z-cursor:   900;
+  --z-loader:   1000;
+}
