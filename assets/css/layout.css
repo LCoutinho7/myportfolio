@@ -113,20 +113,31 @@
 /* ── Mobile Nav Burger ── */
 .lf-nav__burger {
   display: none;
-  flex-direction: column;
-  gap: 5px;
-  padding: var(--space-xs);
+  position: relative;
+  width: 44px;
+  height: 44px;
   z-index: var(--z-nav);
+  flex-shrink: 0;
 }
 
 .lf-nav__burger-line {
-  display: block;
+  position: absolute;
+  left: 11px;
+  top: 50%;
   width: 22px;
   height: 1px;
   background: var(--color-text-primary);
   transform-origin: center;
   transition: transform var(--duration-slow) var(--ease-out-expo),
               opacity   var(--duration-base);
+}
+
+.lf-nav__burger-line:nth-child(1) {
+  transform: translateY(-4px);
+}
+
+.lf-nav__burger-line:nth-child(2) {
+  transform: translateY(4px);
 }
 
 /* ── Mobile Menu ── */

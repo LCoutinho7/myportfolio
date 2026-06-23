@@ -6,10 +6,10 @@
 
 /* ── Nav burger state ── */
 .lf-nav__burger.is-active .lf-nav__burger-line:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
+  transform: translateY(0) rotate(45deg);
 }
 .lf-nav__burger.is-active .lf-nav__burger-line:nth-child(2) {
-  transform: translateY(-6px) rotate(-45deg);
+  transform: translateY(0) rotate(-45deg);
 }
 
 /* ── Mobile menu link stagger (CSS, not GSAP) ── */

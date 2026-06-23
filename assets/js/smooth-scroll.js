@@ -55,8 +55,18 @@ function initSmoothScroll() {
  * @param {number} offset - pixel offset (e.g. -80 for nav height)
  */
 function scrollTo(target, offset = -80) {
-  if (!lenisInstance) return;
-  lenisInstance.scrollTo(target, { offset, duration: 1.4 });
+  const targetEl = typeof target === 'string'
+    ? document.querySelector(target)
+    : target;
+  if (!targetEl) return;
+
+  if (!lenisInstance) {
+    const top = targetEl.getBoundingClientRect().top + window.scrollY + offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+    return;
+  }
+
+  lenisInstance.scrollTo(targetEl, { offset, duration: 1.4 });
 }
 
 /**

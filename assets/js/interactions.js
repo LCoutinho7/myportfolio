@@ -25,9 +25,14 @@ function initNav() {
     const target = document.querySelector(link.getAttribute('href'));
     if (!target) return;
     e.preventDefault();
+
+    if (menuOpen || link.classList.contains('lf-mobile-menu__link')) {
+      closeMobileMenu();
+      requestAnimationFrame(() => scrollTo(target, -80));
+      return;
+    }
+
     scrollTo(target, -80);
-    // Close mobile menu if open
-    closeMobileMenu();
   });
 }
 
