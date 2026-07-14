@@ -10,7 +10,7 @@
 
 html {
   font-size: 16px;
-  scroll-behavior: auto; /* Lenis handles scrolling */
+  scroll-behavior: auto;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }

@@ -71,6 +71,11 @@ function animateHeroEntrance() {
    Subtle depth movement on hero scroll.
    ───────────────────────────────────────────── */
 function initOrbParallax() {
+  const shouldAnimateOrbs = window.matchMedia(
+    '(min-width: 1441px) and (pointer: fine) and (prefers-reduced-motion: no-preference)'
+  ).matches;
+  if (!shouldAnimateOrbs) return;
+
   gsap.to('.hero__orb--1', {
     yPercent: -25,
     ease: 'none',
@@ -78,7 +83,7 @@ function initOrbParallax() {
       trigger: '#hero',
       start:   'top top',
       end:     'bottom top',
-      scrub:   1.2,
+      scrub:   true,
     },
   });
 
@@ -89,7 +94,7 @@ function initOrbParallax() {
       trigger: '#hero',
       start:   'top top',
       end:     'bottom top',
-      scrub:   1.5,
+      scrub:   true,
     },
   });
 }
@@ -185,17 +190,31 @@ function initHeroCanvas() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
 
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+  const shouldRenderCanvas = window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches;
+  if (prefersReducedMotion || !shouldRenderCanvas) {
+    canvas.remove();
+    return;
+  }
+
   const ctx      = canvas.getContext('2d');
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  const COUNT    = isMobile ? 35 : 80;
+  const COUNT    = 44;
 
   let W, H, particles;
   let mouseX = -9999;
   let mouseY = -9999;
+  let rafId = null;
+  let lastFrame = 0;
 
   function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = canvas.offsetWidth;
+    H = canvas.offsetHeight;
+    canvas.width = Math.floor(W * pixelRatio);
+    canvas.height = Math.floor(H * pixelRatio);
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   }
 
   function buildParticles() {
@@ -209,19 +228,21 @@ function initHeroCanvas() {
     }));
   }
 
-  function drawFrame() {
+  function drawFrame(timestamp) {
+    rafId = requestAnimationFrame(drawFrame);
+    if (timestamp - lastFrame < 33) return;
+    lastFrame = timestamp;
+
     ctx.clearRect(0, 0, W, H);
 
     particles.forEach(p => {
-      if (!isMobile) {
-        const dx   = p.x - mouseX;
-        const dy   = p.y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 110) {
-          const force = (110 - dist) / 110;
-          p.vx += (dx / dist) * force * 0.14;
-          p.vy += (dy / dist) * force * 0.14;
-        }
+      const dx   = p.x - mouseX;
+      const dy   = p.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist > 0 && dist < 110) {
+        const force = (110 - dist) / 110;
+        p.vx += (dx / dist) * force * 0.12;
+        p.vy += (dy / dist) * force * 0.12;
       }
 
       p.vx *= 0.978;
@@ -240,40 +261,28 @@ function initHeroCanvas() {
       ctx.fill();
     });
 
-    // Connection lines
-    for (let i = 0; i < particles.length - 1; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx   = particles[i].x - particles[j].x;
-        const dy   = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 110) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(99,120,255,${0.055 * (1 - dist / 110)})`;
-          ctx.lineWidth   = 0.5;
-          ctx.stroke();
-        }
-      }
+    if (document.hidden && rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
     }
-
-    requestAnimationFrame(drawFrame);
   }
 
   resize();
   buildParticles();
-  drawFrame();
+  rafId = requestAnimationFrame(drawFrame);
 
   window.addEventListener('resize', () => {
     resize();
     buildParticles();
   }, { passive: true });
 
-  if (!isMobile) {
-    canvas.addEventListener('mousemove', e => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    }, { passive: true });
-  }
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && !rafId) rafId = requestAnimationFrame(drawFrame);
+  });
+
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  }, { passive: true });
 }

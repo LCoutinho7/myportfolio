@@ -48,8 +48,7 @@
 /* ── Project card 3D tilt ── */
 .project-card {
   transform-style: preserve-3d;
-  transition: transform var(--duration-base) var(--ease-out-expo),
-              padding-left var(--duration-slower) var(--ease-out-expo);
+  transition: transform var(--duration-base) var(--ease-out-expo);
 }
 
 /* ── Loader exit ── */

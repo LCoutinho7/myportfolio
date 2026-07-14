@@ -33,9 +33,11 @@
 
 #scroll-progress-bar {
   height: 100%;
-  width: 0%;
+  width: 100%;
   background: var(--color-accent);
-  will-change: width;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
 }
 
 /* ── Navigation ── */
@@ -57,8 +59,8 @@
 
 .lf-nav.is-scrolled {
   background-color: rgba(8, 8, 8, 0.88);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom-color: var(--color-border);
 }
 
@@ -211,7 +213,7 @@ body.is-menu-open {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(100px);
+  filter: blur(64px);
   will-change: transform;
 }
 
@@ -563,14 +565,15 @@ body.is-menu-open {
 /* ── Mouse trail ── */
 .lf-mouse-glow {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 200px;
   height: 200px;
   border-radius: var(--radius-full);
   background: radial-gradient(circle, rgba(99,120,255,0.055) 0%, transparent 70%);
   pointer-events: none;
   z-index: var(--z-base);
-  transform: translate(-50%, -50%);
-  will-change: left, top;
+  will-change: transform;
 }
 
 @media (hover: none) {

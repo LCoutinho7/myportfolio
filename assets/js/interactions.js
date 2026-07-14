@@ -28,11 +28,11 @@ function initNav() {
 
     if (menuOpen || link.classList.contains('lf-mobile-menu__link')) {
       closeMobileMenu();
-      requestAnimationFrame(() => scrollTo(target, -80));
+      requestAnimationFrame(() => scrollToTarget(target, -80));
       return;
     }
 
-    scrollTo(target, -80);
+    scrollToTarget(target, -80);
   });
 }
 
@@ -61,7 +61,6 @@ function openMobileMenu() {
   document.getElementById('mobile-menu').setAttribute('aria-hidden', 'false');
   document.getElementById('nav-burger').classList.add('is-active');
   document.getElementById('nav-burger').setAttribute('aria-expanded', 'true');
-  getSmoothScroll()?.stop();
 }
 
 function closeMobileMenu() {
@@ -72,7 +71,6 @@ function closeMobileMenu() {
   document.getElementById('mobile-menu')?.setAttribute('aria-hidden', 'true');
   document.getElementById('nav-burger')?.classList.remove('is-active');
   document.getElementById('nav-burger')?.setAttribute('aria-expanded', 'false');
-  getSmoothScroll()?.start();
 }
 
 /* ─────────────────────────────────────────────
@@ -86,7 +84,7 @@ function initScrollProgress() {
     start:    'top top',
     end:      'bottom bottom',
     onUpdate: self => {
-      bar.style.width = (self.progress * 100).toFixed(2) + '%';
+      bar.style.transform = `scaleX(${self.progress.toFixed(4)})`;
     },
   });
 }
@@ -100,6 +98,8 @@ function initMagneticButtons() {
   if (window.matchMedia('(hover: none)').matches) return;
 
   document.querySelectorAll('[data-magnetic]').forEach(btn => {
+    btn._magneticTween = gsap.quickTo(btn, 'x', { duration: 0.25, ease: 'power2.out' });
+    btn._magneticTweenY = gsap.quickTo(btn, 'y', { duration: 0.25, ease: 'power2.out' });
     btn.addEventListener('mousemove', onMagneticMove, { passive: true });
     btn.addEventListener('mouseleave', onMagneticLeave, { passive: true });
   });
@@ -112,11 +112,8 @@ function onMagneticMove(e) {
   const dx    = (e.clientX - cx) * 0.38;
   const dy    = (e.clientY - cy) * 0.38;
 
-  gsap.to(this, {
-    x: dx, y: dy,
-    duration: 0.4,
-    ease: 'power2.out',
-  });
+  this._magneticTween?.(dx);
+  this._magneticTweenY?.(dy);
 }
 
 function onMagneticLeave() {
@@ -161,18 +158,16 @@ function initProjectTilt() {
   if (window.matchMedia('(hover: none)').matches) return;
 
   document.querySelectorAll('.project-card').forEach(card => {
+    const rotateXTo = gsap.quickTo(card, 'rotateX', { duration: 0.25, ease: 'power2.out' });
+    const rotateYTo = gsap.quickTo(card, 'rotateY', { duration: 0.25, ease: 'power2.out' });
+
     card.addEventListener('mousemove', e => {
       const rect    = card.getBoundingClientRect();
       const xRatio  = (e.clientX - rect.left) / rect.width  - 0.5;
       const yRatio  = (e.clientY - rect.top)  / rect.height - 0.5;
 
-      gsap.to(card, {
-        rotateX: -yRatio * 2.5,
-        rotateY:  xRatio * 2.5,
-        duration: 0.5,
-        ease:     'power2.out',
-        transformPerspective: 900,
-      });
+      rotateXTo(-yRatio * 2);
+      rotateYTo(xRatio * 2);
     }, { passive: true });
 
     card.addEventListener('mouseleave', () => {
@@ -193,14 +188,13 @@ function initMouseGlow() {
 
   const glow = document.querySelector('.lf-mouse-glow');
   if (!glow) return;
+  gsap.set(glow, { xPercent: -50, yPercent: -50 });
+  const xTo = gsap.quickTo(glow, 'x', { duration: 0.45, ease: 'power2.out' });
+  const yTo = gsap.quickTo(glow, 'y', { duration: 0.45, ease: 'power2.out' });
 
   document.addEventListener('mousemove', e => {
-    gsap.to(glow, {
-      left:     e.clientX,
-      top:      e.clientY,
-      duration: 0.7,
-      ease:     'power2.out',
-    });
+    xTo(e.clientX);
+    yTo(e.clientY);
   }, { passive: true });
 }
 

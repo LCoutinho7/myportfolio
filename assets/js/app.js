@@ -70,10 +70,10 @@ const Loader = (() => {
 
 /* ─────────────────────────────────────────────
    BOOT SEQUENCE
-   Order matters: scroll → interactions → animations
+   Order matters: scroll helpers → interactions → animations
    ───────────────────────────────────────────── */
 function bootSite() {
-  // 1. Smooth scroll (must be first — others depend on lenis/ScrollTrigger)
+  // 1. Native scroll helpers
   initSmoothScroll();
 
   // 2. GSAP plugins

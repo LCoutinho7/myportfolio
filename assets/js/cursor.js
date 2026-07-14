@@ -12,33 +12,50 @@ let mouseX     = 0;
 let mouseY     = 0;
 let ringX      = 0;
 let ringY      = 0;
+let rafId      = null;
+let setDotX    = null;
+let setDotY    = null;
+let setRingX   = null;
+let setRingY   = null;
 
 function initCursor() {
   // Skip on touch-only devices
-  if (window.matchMedia('(hover: none)').matches) return;
+  if (window.matchMedia('(hover: none), (prefers-reduced-motion: reduce)').matches) return;
 
   cursorDot  = document.getElementById('lf-cursor');
   cursorRing = document.getElementById('lf-cursor-ring');
 
   if (!cursorDot || !cursorRing) return;
 
+  setDotX = gsap.quickSetter(cursorDot, 'x', 'px');
+  setDotY = gsap.quickSetter(cursorDot, 'y', 'px');
+  setRingX = gsap.quickSetter(cursorRing, 'x', 'px');
+  setRingY = gsap.quickSetter(cursorRing, 'y', 'px');
+
   document.addEventListener('mousemove', onMouseMove, { passive: true });
 
   // Spring-based ring loop
-  requestAnimationFrame(animateRing);
+  rafId = requestAnimationFrame(animateRing);
 
   // Hover states on interactive elements
   document.querySelectorAll(CURSOR_SELECTORS).forEach(attachHoverStates);
 
-  // Also watch for dynamically added elements (none in this project, but good practice)
-  observeNewElements();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+      return;
+    }
+    if (!document.hidden && !rafId) rafId = requestAnimationFrame(animateRing);
+  });
 }
 
 function onMouseMove(e) {
   mouseX = e.clientX;
   mouseY = e.clientY;
   // Dot snaps immediately to cursor position
-  gsap.set(cursorDot, { x: mouseX, y: mouseY });
+  setDotX(mouseX);
+  setDotY(mouseY);
 }
 
 function animateRing() {
@@ -46,8 +63,9 @@ function animateRing() {
   const SPRING = 0.095;
   ringX += (mouseX - ringX) * SPRING;
   ringY += (mouseY - ringY) * SPRING;
-  gsap.set(cursorRing, { x: ringX, y: ringY });
-  requestAnimationFrame(animateRing);
+  setRingX(ringX);
+  setRingY(ringY);
+  rafId = requestAnimationFrame(animateRing);
 }
 
 function attachHoverStates(el) {
@@ -77,18 +95,4 @@ function onLeaveInteractive() {
     opacity: 1,
     duration: 0.3,
   });
-}
-
-function observeNewElements() {
-  // MutationObserver pattern — for future dynamic content
-  const observer = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
-      mutation.addedNodes.forEach(node => {
-        if (node.nodeType !== 1) return;
-        if (node.matches?.(CURSOR_SELECTORS)) attachHoverStates(node);
-        node.querySelectorAll?.(CURSOR_SELECTORS).forEach(attachHoverStates);
-      });
-    });
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
 }
