@@ -7,17 +7,7 @@ const setTheme = t => { document.body.dataset.theme = t; };
 
 /* ── Nav ── */
 const nav = $('.nav');
-const burger = $('#burger');
-const menu = $('#menu');
 addEventListener('scroll', () => nav.classList.toggle('is-scrolled', scrollY > 60), { passive: true });
-
-const toggleMenu = open => {
-  document.body.classList.toggle('menu-open', open);
-  menu.classList.toggle('is-open', open);
-  burger.setAttribute('aria-expanded', open);
-};
-burger.addEventListener('click', () => toggleMenu(!menu.classList.contains('is-open')));
-$$('a', menu).forEach(a => a.addEventListener('click', () => toggleMenu(false)));
 
 /* ── Tema dinâmico: fundo/texto invertem conforme a seção em foco ── */
 $$('section[data-theme]').forEach(sec => {
@@ -76,9 +66,19 @@ function scrubText() {
 
 /* ── Reveals + contadores ── */
 function reveals() {
-  $$('[data-reveal]').forEach(el => {
-    gsap.to(el, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+  const fadeUp = el => gsap.to(el, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+  $$('[data-reveal]:not(.row__body)').forEach(fadeUp);
+
+  const mm = gsap.matchMedia();
+  // desktop: comportamento original
+  mm.add('(min-width: 769px)', () => { $$('.row__body').forEach(fadeUp); });
+  // mobile: experiência/formação entram da direita
+  mm.add('(max-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+    gsap.set('.row__body', { opacity: 1, y: 0 });
+    $$('.row').forEach(row => gsap.fromTo(row, { x: 50, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: row, start: 'top 85%', once: true } }));
   });
   $$('[data-count]').forEach(el => {
     const o = { v: 0 };
